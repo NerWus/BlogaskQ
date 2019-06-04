@@ -24,6 +24,7 @@ class LoadPostData extends Fixture
             $post->setLead($faker->text(300));
             $post->setContent($faker->text(700));
             $post->setCreatedAt($faker->dateTimeThisMonth);
+            $post->setImg($faker->imageUrl());
             $manager->persist($post);
         }
 
