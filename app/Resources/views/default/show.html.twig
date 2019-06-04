@@ -1,0 +1,213 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!--================Blog Area =================-->
+    <section class="blog_area single-post-area section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post">
+                        <div class="feature-img">
+                            <img class="img-fluid" src="img/blog/main-blog/m-blog-1.jpg" alt="">
+                        </div>
+                        <!-- <div class="col-lg-3  col-md-3">
+                                <div class="blog_info text-right">
+                                        <div class="post_tag">
+                                                <a href="#">Food,</a>
+                                                <a class="active" href="#">Technology,</a>
+                                                <a href="#">Politics,</a>
+                                                <a href="#">Lifestyle</a>
+                                        </div>
+                                        <ul class="blog_meta list">
+                                                <li>
+                                                        <a href="#">Mark wiens
+                                                                <i class="lnr lnr-user"></i>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">12 Dec, 2017
+                                                                <i class="lnr lnr-calendar-full"></i>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">1.2M Views
+                                                                <i class="lnr lnr-eye"></i>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">06 Comments
+                                                                <i class="lnr lnr-bubble"></i>
+                                                        </a>
+                                                </li>
+                                        </ul>
+                                        <ul class="social-links">
+                                                <li>
+                                                        <a href="#">
+                                                                <i class="fab fa-facebook-f"></i>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">
+                                                            <i class="fab fa-twitter"></i>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">
+                                                            <i class="fab fa-github"></i>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">
+                                                            <i class="fab fa-behance"></i>
+                                                        </a>
+                                                </li>
+                                        </ul>
+
+        </div>
+                        </div> -->
+                        <div class="blog_details">
+                            <h2>{{ post.title }}</h2>
+                            <ul class="blog-info-link mt-3 mb-4">
+                                <li><a href="#"><i class="far fa-user"></i> Travel, Lifestyle</a></li>
+                                <li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li>
+                            </ul>
+                            <p class="excert">
+                                {{ post.content }}
+                            </p>
+                        </div>
+                    </div>
+
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    {{ form_start(form) }}
+                    <div class="comment-form">
+                        <h4>Leave a Reply</h4>
+                        <form class="form-contact comment_form" action="#" id="commentForm">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        {{ form_widget(form) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="button button-contactForm">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                    {% else %}
+                        <p style="color:red">Komentarze tylko dla zalogowanych: <a href="{{ path('fos_user_security_login') }}">Zaloguj się</a></p>
+                    {% endif %}
+                    {{ form_end(form) }}
+                    {% for comment in post.comment %}
+                        <div>
+                            <span class="pull-left">Dodany: {{ post.createdAt|date('Y/d/m') }}</span>
+                            <p>{{ comment.content }}</p>
+                            <span>Autor komentarza: <b>{{ comment.user }}</b></span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget search_widget">
+                            <form action="#">
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Search Keyword">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="button"><i class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="button rounded-0 primary-bg text-white w-100" type="submit">Search</button>
+                            </form>
+                        </aside>
+
+                        <aside class="single_sidebar_widget post_category_widget">
+                            <h4 class="widget_title">Category</h4>
+                            <ul class="list cat-list">
+                                <li>
+                                    <a href="#" class="d-flex">
+                                        <p>Resaurant food</p>
+                                        <p>(37)</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="d-flex">
+                                        <p>Travel news</p>
+                                        <p>(10)</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="d-flex">
+                                        <p>Modern technology</p>
+                                        <p>(03)</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="d-flex">
+                                        <p>Product</p>
+                                        <p>(11)</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="d-flex">
+                                        <p>Inspiration</p>
+                                        <p>(21)</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="d-flex">
+                                        <p>Health Care</p>
+                                        <p>(21)</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </aside>
+
+                        <aside class="single_sidebar_widget tag_cloud_widget">
+                            <h4 class="widget_title">Tag Clouds</h4>
+                            <ul class="list">
+                                <li>
+                                    <a href="#">project</a>
+                                </li>
+                                <li>
+                                    <a href="#">love</a>
+                                </li>
+                                <li>
+                                    <a href="#">technology</a>
+                                </li>
+                                <li>
+                                    <a href="#">travel</a>
+                                </li>
+                                <li>
+                                    <a href="#">restaurant</a>
+                                </li>
+                                <li>
+                                    <a href="#">life style</a>
+                                </li>
+                                <li>
+                                    <a href="#">design</a>
+                                </li>
+                                <li>
+                                    <a href="#">illustration</a>
+                                </li>
+                            </ul>
+                        </aside>
+                        <aside class="single_sidebar_widget newsletter_widget">
+                            <h4 class="widget_title">Newsletter</h4>
+
+                            <form action="#">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Enter email" required>
+                                </div>
+                                <button class="button rounded-0 primary-bg text-white w-100" type="submit">Subscribe</button>
+                            </form>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
