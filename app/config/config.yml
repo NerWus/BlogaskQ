@@ -35,7 +35,10 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-    form_themes: ['bootstrap_4_layout.html.twig']
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -78,14 +81,29 @@ fos_user:
     from_email:
         address: "127.0.0.1"
         sender_name: "null"
+fos_ck_editor:
+    input_sync: true
+    default_config: base_config
+    configs:
+        base_config:
+            toolbar:
+                - { name: "styles", items: ['Bold', 'Italic', 'BulletedList', 'Link'] }
 easy_admin:
     entities:
         # change the following to the namespaces of your own entities
         #- AppBundle\Entity\Product
         #- AppBundle\Entity\Category
-        - AppBundle\Entity\User
-        - AppBundle\Entity\Post
-        - AppBundle\Entity\Comment
+        post:
+            class: AppBundle\Entity\Post
+            form:
+                fields:
+                    - { property: 'title'}
+                    - { property: 'lead'}
+                    - { property: 'content', type: 'fos_ckeditor' }
+        user:
+            class: AppBundle\Entity\User
+        comment:
+            class: AppBundle\Entity\Comment
 knp_paginator:
     page_range: 5                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
     default_options:
